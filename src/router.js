@@ -8,6 +8,8 @@ import Home from './views/Home'
 import InfoShow from './views/InfoShow'
 import FoundList from './views/FoundList'
 import Cookies from 'js-cookie'
+import Table from './views/Table'
+import user from './views/user'
 Vue.use(Router)
 
 const router = new Router({
@@ -26,7 +28,9 @@ const router = new Router({
         { path: '', component: Home },
         { path: '/home', name: 'home', component: Home },
         { path: '/infoshow', name: 'infoshow', component: InfoShow },
-        { path: '/foundlist', name: 'foundlist', component: FoundList }
+        { path: '/foundlist', name: 'foundlist', component: FoundList },
+        { path: '/Table', name: 'table', component: Table },
+        { path: '/user', name: 'user', component: user },
       ]
     },
 

@@ -66,21 +66,22 @@ export default {
             .post("/api/SignInServlet", this.loginUser)
             .then(function(res) {
               const jsonObj = JSON.parse(JSON.stringify(res.data));
-              console.log(res.data)
-              console.log(jsonObj.email)
-              if (res.data === "false") {
-                alert("密码出错");
-              } else  if(res.data!=null){
-                  console.log(res.data)
-                 const obj=  eval(res.data);
-                 if(this.loginUser.email==obj.email){
-                   Cookies.set('user', obj.email)
-                   Cookies.set('name', obj.name)
-                   console.log(res.data)
-                   console.log(obj.name)
+              if (jsonObj.code !=200) {
+
+                alert(jsonObj.msg);
+              } else  if(jsonObj.code===200){
+                const info=jsonObj.data;
+
+
+
+                // console.log(jsonObj.data)
+                    Cookies.set('mail', info.mail)
+                    Cookies.set('name', info.name)
+                    console.log(Cookies.get('mail'))
+                    console.log(Cookies.get('name'))
                    this.$router.push("/index")
 
-                 }
+
 
               }
               // this.$axios.post("/api/users/login", this.loginUser).then(res => {

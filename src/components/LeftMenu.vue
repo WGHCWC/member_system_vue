@@ -5,7 +5,7 @@
                 mode="vertical"
                 background-color="#324057"
                 text-color="#fff"
-                active-text-color="#409eff" 
+                active-text-color="#409eff"
                 class="el-menu-vertical-demo">
                 <router-link to="/home">
                     <el-menu-item index="0">
@@ -19,15 +19,15 @@
                             <i :class="'fa fa-margin '+item.icon"></i>
                             <span slot="title">{{item.name}}</span>
                         </template>
-                        <router-link v-for="(citem,cindex) in item.children" 
+                        <router-link v-for="(citem,cindex) in item.children"
                             :to="citem.path" :key="cindex">
-                            <el-menu-item 
+                            <el-menu-item
                                 :index='citem.path'>
                                 <span slot="title">{{citem.name}}</span>
-                            </el-menu-item> 
+                            </el-menu-item>
                         </router-link>
                     </el-submenu>
-                    
+
                 </template>
              </el-menu>
          </el-col>
@@ -50,7 +50,7 @@ export default {
           icon: "fa-asterisk",
           name: "信息管理",
           path: "info",
-          children: [{ path: "infoshow", name: "个人信息" },{ path: "infoshow", name: "会员信息（管理员）" }]
+          children: [{ path: "user", name: "个人信息" },{ path: "table", name: "会员信息（管理员）" }]
         },
           {
           icon: "fa-asterisk",

@@ -14,7 +14,7 @@
                   </div>
                   <div class="user-item">
                     <i class="fa fa-cog"></i>
-                    <span>{{user.identity == 'manager' ? '管理员' : '普通员工'}}</span>
+                    <span>{{user.level == 'master' ? '管理员' : '普通员工'}}</span>
                   </div>
                </div>
            </el-col>
@@ -26,7 +26,12 @@ export default {
   name: "infoshow",
   computed: {
     user() {
-       return this.$store.getters.user;
+
+      return{
+        name : 'zq',
+        level:'master'
+      }
+      // return this.$store.getters.user;
     //  return 's';
     }
   }
