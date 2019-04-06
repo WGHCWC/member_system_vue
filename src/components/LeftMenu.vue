@@ -42,21 +42,21 @@ export default {
         {
           icon: "fa-money",
           name: "消息",
-          path: "fund",
-          children: [{ path: "foundlist", name: "会议" },{ path: "infoshow", name: "通知" },
-          { path: "infoshow", name: "消息管理（管理员）" }],
+          path: "msg",
+          children: [{ path: "MeetInfo", name: "会议" },{ path: "message", name: "通知" },
+          { path: "msgMangent", name: "消息管理（管理员）" }],
         },
         {
           icon: "fa-asterisk",
           name: "信息管理",
           path: "info",
-          children: [{ path: "user", name: "个人信息" },{ path: "table", name: "会员信息（管理员）" }]
+          children: [{ path: "userInfo", name: "个人信息" },{ path: "membersInfo", name: "会员信息（管理员）" }]
         },
           {
           icon: "fa-asterisk",
           name: "评奖",
-          path: "info",
-          children: [{ path: "infoshow", name: "论文投票" }]
+          path: "article",
+          children: [{ path: "ArtcileReword", name: "论文投票" },{ path: "myArticle", name: "我的论文" }]
         }
       ]
     };

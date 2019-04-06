@@ -18,11 +18,17 @@
         <el-form-item label="确认密码" prop="password2">
           <el-input v-model="registerUser.password2" placeholder="请确认密码" type="password"></el-input>
         </el-form-item>
-        <el-form-item label="选择身份">
-          <el-select v-model="registerUser.level" placeholder="请选择身份">
-            <el-option label="管理员" value="admin"></el-option>
-            <el-option label="会员" value="user"></el-option>
+        <el-form-item label="学历背景">
+          <el-select v-model="registerUser.background" placeholder="请选择身份">
+            <el-option label="硕士" value="硕士"></el-option>
+            <el-option label="博士" value="博士"></el-option>
+            <el-option label="教授" value="教授"></el-option>
+            <el-option label="院士" value="院士"></el-option>
           </el-select>
+        </el-form-item>
+        <el-form-item label="简介"  prop="introduce">
+          <el-input type="textarea"
+                    :rows="3" v-model="registerUser.introduce"  auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" class="submit_btn" @click="submitForm('registerForm')">注 册
@@ -39,7 +45,7 @@
   export default {
 
     name: 'register',
-    data () {
+    data() {
       var validatePass2 = (rule, value, callback) => {
         if (value !== this.registerUser.password) {
           callback(new Error('两次输入密码不一致!'))
@@ -53,51 +59,53 @@
           mail: '',
           password: '',
           password2: '',
+          background:'',
+          introduce:'',
           level: ''
         },
+        user:{
+          level:'user',
+          name:'',
+          address:'北京',
+          background:'',
+          introduce:'',
+          password:'',
+          mail:'',
+        },
         rules: {
-          name: [
-            {required: true, message: '用户名不能为空', trigger: 'change'},
-            {min: 2, max: 30, message: '长度在 2 到 30 个字符', trigger: 'blur'}
-          ],
-          mail: [
-            {
-              type: 'email',
-              required: true,
-              message: '邮箱格式不正确',
-              trigger: 'blur'
-            }
-          ],
-          password: [
-            {required: true, message: '密码不能为空', trigger: 'blur'},
-            {min: 3, max: 30, message: '长度在 3 到 30 个字符', trigger: 'blur'}
-          ],
-          password2: [
-            {required: true, message: '确认密码不能为空', trigger: 'blur'},
-            {
-              min: 3,
-              max: 30,
-              message: '长度在 3 到 30 个字符',
-              trigger: 'blur'
-            },
-            {validator: validatePass2, trigger: 'blur'}
-          ]
+          name: [{required: true, message: '用户名不能为空', trigger: 'change'}, {min: 2, max: 30, message: '长度在 2 到 30 个字符', trigger: 'blur'}],
+          mail: [{type: 'email', required: true, message: '邮箱格式不正确', trigger: 'blur'}],
+          password: [{required: true, message: '密码不能为空', trigger: 'blur'}, {min: 3, max: 30, message: '长度在 3 到 30 个字符', trigger: 'blur'}],
+          password2: [{required: true, message: '确认密码不能为空', trigger: 'blur'}, {min: 3, max: 30, message: '长度在 3 到 30 个字符', trigger: 'blur'}, {validator: validatePass2, trigger: 'blur'}]
         }
       }
     },
     methods: {
-      submitForm (formName) {
+      submitForm(formName) {
         this.$refs[formName].validate(valid => {
           if (valid) {
-            this.$http.post('/api/SignUpServlet', this.registerUser).then(function (res) {
+            this.user.name=this.registerUser.name
+            this.user.background=this.registerUser.background
+            this.user.introduce=this.registerUser.introduce
+            this.user.password=this.registerUser.password
+            this.user.mail=this.registerUser.mail
+
+            this.$http.post('/api/SignUpServlet', this.user).then(function (res) {
               const jsonObj = JSON.parse(JSON.stringify(res.data))
               console.log(jsonObj.msg)
               if (jsonObj.code != 200) {
+                this.$message({
+                  type: 'warning',
+                  message: jsonObj.msg
+
+                });
                 alert(jsonObj.msg)
               } else {
-                const userInfo = JSON.parse(jsonObj.data)
-                Cookies.set('mail', userInfo.mail)
-                Cookies.set('name', userInfo.name)
+                this.$message({
+                  type: 'success',
+                  message: '注册成功!'
+
+                });
                 this.$router.push('/index')
               }
             })

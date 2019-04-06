@@ -5,9 +5,9 @@
         <img src="../assets/logo.png" class="logo" alt>
         <span class="title">生物学会会员管理系统</span>
       </el-col>
-      <el-col :span="6" class="user">
+      <el-col :span="6" class="user"  v-model="user">
         <div class="userinfo">
-          <img :src="user.avatar" class="avatar" alt>
+          <img src="../assets/logo.png" class="avatar" alt>
           <div class="welcome">
             <p class="name comename">欢迎</p>
             <p class="name avatarname">{{user.name}}</p>
@@ -33,22 +33,9 @@ import Cookies from "js-cookie";
 export default {
   name: "head-nav",
 
-  // data() {
-  //   return {
-  //     loginUser: {
-  //       email: "",
-  //       password: ""
-  //     }
-  //   };
-  // },
   computed: {
     user() {
-      return {
-        name: Cookies.get('name'),
-         avatar:"../assets/logo.png"
-      }
-      //  return   eval(Cookies.get('user'));
-      //   return this.$store.getters.user;
+      return JSON.parse(Cookies.get('user'))
     }
   },
   methods: {
@@ -69,11 +56,12 @@ export default {
     },
     showInfoList() {
       // 个人信息
-      this.$router.push("/infoshow");
+      this.$router.push("/userInfo");
     },
     logout() {
       // 清除toke
-
+      Cookies.remove('user')
+      Cookies.remove('level')
       // 页面跳转
       this.$router.push("/login");
     }

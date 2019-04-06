@@ -71,34 +71,13 @@ export default {
                 alert(jsonObj.msg);
               } else  if(jsonObj.code===200){
                 const info=jsonObj.data;
-
-
-
-                // console.log(jsonObj.data)
-                    Cookies.set('mail', info.mail)
-                    Cookies.set('name', info.name)
-                    console.log(Cookies.get('mail'))
-                    console.log(Cookies.get('name'))
+                Cookies.set('user', info)
+                if("admin"===info.level){
+                  Cookies.set('level', true)
+                }
                    this.$router.push("/index")
-
-
-
               }
-              // this.$axios.post("/api/users/login", this.loginUser).then(res => {
-              //   // 登录成功
-              //    const { token } = res.data;
-              //    localStorage.setItem("eleToken", token);
-
-              //   // 解析token
-              //    const decode = jwt_decode(token);
-
-              // //   // 存储数据
-              //    this.$store.dispatch("setIsAutnenticated", !this.isEmpty(decode));
-              //   this.$store.dispatch("setUser", decode);
-
-
             });
-          // });
         } else {
           console.log("error submit!!");
           return false;

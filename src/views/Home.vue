@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <div class="container">
-            <h1 class="title">生物学会会员管理</h1>
+            <h1 class="title">欢迎使用生物学会会员管理系统</h1>
             <p class="lead">  </p>
         </div>
     </div>
